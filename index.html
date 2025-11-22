@@ -74,7 +74,11 @@ document.addEventListener('keydown', function(e) {
 });
 
 async function upgrade() {
-  alert("Stripe coming in next step – you're 99% there!");
+  const r = await fetch('https://alpineworker.meoasis2014.workers.dev/checkout', {
+    method: 'POST'
+  });
+  const d = await r.json();
+  location.href = d.url;
 }
 
 // Unlock Pro after payment (for later)
