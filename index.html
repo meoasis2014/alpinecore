@@ -34,13 +34,13 @@ const emulator = new V86({  // Absolute URLs only – no relative/ repo expectat
   wasm_url: "https://enginuecore.com/v86.wasm",  // ← BACKUP: Unpkg WASM (full absolute)
   memory_size: isPro ? 4*1024*1024*1024 : 512*1024*1024,  // 4GB or 512MB
   bios: { 
-    url: "https://cdn.jsdelivr.net/npm/v86@0.5.276/bios/seabios.bin"  // ← BACKUP: Unpkg BIOS (absolute)
+    url: "https://copy.sh/v86/bios/seabios.bin"  // ← BACKUP: Unpkg BIOS (absolute)
   },
   vga_bios: { 
-    url: "https://cdn.jsdelivr.net/npm/v86@0.5.276/bios/vgabios.bin"  // ← BACKUP: Unpkg VGA BIOS (absolute)
+    url: "https://copy.sh/v86/bios/vgabios.bin"  // ← BACKUP: Unpkg VGA BIOS (absolute)
   },
   cdrom: { 
-    url: "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/alpine-standard-3.20.0-x86_64.iso" 
+    url: "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86/alpine-standard-3.20.0-x86.iso" 
   },
   autostart: true
 });
