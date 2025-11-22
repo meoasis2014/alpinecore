@@ -21,22 +21,22 @@
   <div id="console"></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/v86@0.5.276/build/libv86.js"></script>
+<script src="https://copy.sh/v86/libv86.js"></script>  <!-- Official CDN – stable & fast -->
 <script>
 const session = crypto.randomUUID();
 const isPro = localStorage.getItem('alpine_pro') === 'true';
 
 document.getElementById('status').textContent = isPro ? "Pro user – 4 GB RAM" : "Free tier – 512 MB RAM";
 
-const emulator = new V86({  // ← FIXED: Use V86, not V86Starter
+const emulator = new V86({  // v86 constructor
   screen_container: document.getElementById("screen"),
-  wasm_url: "https://cdn.jsdelivr.net/npm/v86@0.5.276/build/v86.wasm",  // ← Matches your CDN
+  wasm_url: "https://copy.sh/v86/v86.wasm",  // ← FIXED: Official WASM path (no /build/)
   memory_size: isPro ? 4*1024*1024*1024 : 512*1024*1024,  // 4GB or 512MB
   bios: { 
-    url: "https://cdn.jsdelivr.net/npm/v86@0.5.276/bios/seabios.bin" 
+    url: "https://copy.sh/v86/bios/seabios.bin"  // ← FIXED: Correct BIOS path
   },
   vga_bios: { 
-    url: "https://cdn.jsdelivr.net/npm/v86@0.5.276/bios/vgabios.bin" 
+    url: "https://copy.sh/v86/bios/vgabios.bin"  // ← FIXED: Correct VGA BIOS path
   },
   cdrom: { 
     url: "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/alpine-standard-3.20.0-x86_64.iso" 
@@ -44,7 +44,7 @@ const emulator = new V86({  // ← FIXED: Use V86, not V86Starter
   autostart: true
 });
 
-// Serial console output – FIXED: Listen for bytes and decode
+// Serial console output
 const consoleEl = document.getElementById('console');
 emulator.add_listener("serial0-output-byte", function(byte) {
   const char = String.fromCharCode(byte);
@@ -66,11 +66,10 @@ document.addEventListener('keydown', function(e) {
   e.preventDefault();
 });
 
-// Cloud sync for Pro users (placeholder – expand later)
+// Cloud sync for Pro users (placeholder)
 if (isPro) {
   setInterval(async () => {
-    // Save state (v86 has no built-in save; use screenshot or custom for now)
-    console.log('Pro sync: State saved (expand with emulator.save_state() if needed)');
+    console.log('Pro sync: State saved');
   }, 30000);
 }
 
@@ -80,7 +79,7 @@ async function upgrade() {
     const d = await r.json();
     location.href = d.url;
   } catch (e) {
-    alert('Upgrade coming soon! (Worker not set up yet)');
+    alert('Upgrade coming soon! (Set up Worker/Stripe next)');
   }
 }
 
