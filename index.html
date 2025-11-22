@@ -78,10 +78,11 @@ async function upgrade() {
 }
 
 // Unlock Pro after payment (for later)
-if (location.search.includes('paid=1')) {
-  localStorage.setItem('alpine_pro', 'true');
-  alert('Pro unlocked!');
-  location.href = 'https://enginuecore.com';
+if (localStorage.getItem('alpine_pro') === 'true') {
+  const userId = localStorage.getItem('user_id');
+  if (userId) {
+    alert('Your Pro terminal: https://' + userId + '.enginuecore.com');
+  }
 }
 </script>
 </body>
