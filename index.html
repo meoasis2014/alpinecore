@@ -37,6 +37,13 @@ document.getElementById('status').textContent = isPro ? "Pro user – 4 GB RAM" 
 document.getElementById('start').onclick = function() {
   this.style.display = 'none';  // Hide button
 
+  const screenDiv = document.getElementById('screen');
+const canvas = document.createElement('canvas');
+canvas.id = 'vga-canvas';
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight - 200;  
+screenDiv.insertBefore(canvas, screenDiv.firstChild);  
+
   emulator = new V86({
     screen_container: document.getElementById("screen"),
     wasm_url: "https://enginuecore.com/build/v86.wasm",
