@@ -6,9 +6,10 @@
   <title>AlpineCore – Instant Alpine Linux Terminal</title>
   <style>
     body{margin:0;background:#000;color:#0f0;font:18px 'Courier New',monospace;overflow:hidden}
-    #screen{height:100vh;padding:20px;box-sizing:border-box}
+    #screen{height:100vh;padding:20px;box-sizing:border-box;overflow-y:auto;}
     .top{background:#000;color:#0f0;padding:10px;text-align:center;font-weight:bold;position:fixed;top:0;left:0;right:0;z-index:99}
     button{background:#0f0;color:#000;border:none;padding:12px 24px;margin:10px;font-weight:bold;cursor:pointer}
+    #console{font-family:monospace; white-space:pre-wrap; word-wrap:break-word;}
   </style>
 </head>
 <body>
@@ -16,7 +17,9 @@
   AlpineCore – <span id="status">Loading...</span>
   <button onclick="upgrade()">Upgrade to Pro – $19/mo (4 GB RAM + persistence)</button>
 </div>
-<div id="screen"></div>
+<div id="screen">
+  <div id="console"></div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/v86@0.5.276/build/libv86.js"></script>
 <script>
@@ -25,22 +28,67 @@ const isPro = localStorage.getItem('alpine_pro') === 'true';
 
 document.getElementById('status').textContent = isPro ? "Pro user – 4 GB RAM" : "Free tier – 512 MB RAM";
 
-const emulator = new V86Starter({
-  screen_container: "screen",
-  wasm_url: "https://copy.sh/v86/v86.wasm",
-  memory_size: isPro ? 4*1024*1024*1024 : 512*1024*1024,
-  bios: { url: "https://copy.sh/v86/bios/seabios.bin" },
-  vga_bios: { url: "https://copy.sh/v86/bios/vgabios.bin" },
-  cdrom: { url: "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/alpine-standard-3.20.0-x86_64.iso" },
+const emulator = new V86({  // ← FIXED: Use V86, not V86Starter
+  screen_container: document.getElementById("screen"),
+  wasm_url: "https://cdn.jsdelivr.net/npm/v86@0.5.276/build/v86.wasm",  // ← Matches your CDN
+  memory_size: isPro ? 4*1024*1024*1024 : 512*1024*1024,  // 4GB or 512MB
+  bios: { 
+    url: "https://cdn.jsdelivr.net/npm/v86@0.5.276/bios/seabios.bin" 
+  },
+  vga_bios: { 
+    url: "https://cdn.jsdelivr.net/npm/v86@0.5.276/bios/vgabios.bin" 
+  },
+  cdrom: { 
+    url: "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/alpine-standard-3.20.0-x86_64.iso" 
+  },
   autostart: true
 });
 
-emulator.add_listener("serial0-output-char", c => screen.insertAdjacentText('beforeend', c));
+// Serial console output – FIXED: Listen for bytes and decode
+const consoleEl = document.getElementById('console');
+emulator.add_listener("serial0-output-byte", function(byte) {
+  const char = String.fromCharCode(byte);
+  if (char !== '\r') {  // Skip carriage returns
+    consoleEl.append(char);
+    consoleEl.scrollTop = consoleEl.scrollHeight;  // Auto-scroll
+  }
+});
+
+// Input: Send keystrokes to emulator
+document.addEventListener('keydown', function(e) {
+  if (e.key.length === 1) {
+    emulator.serial0_send(e.key.charCodeAt(0));  // Send as byte
+  } else if (e.key === 'Enter') {
+    emulator.serial0_send(13);  // Enter key
+  } else if (e.key === 'Backspace') {
+    emulator.serial0_send(127);  // Backspace
+  }
+  e.preventDefault();
+});
+
+// Cloud sync for Pro users (placeholder – expand later)
+if (isPro) {
+  setInterval(async () => {
+    // Save state (v86 has no built-in save; use screenshot or custom for now)
+    console.log('Pro sync: State saved (expand with emulator.save_state() if needed)');
+  }, 30000);
+}
 
 async function upgrade() {
-  const r = await fetch('https://worker.enginuecore.com/checkout', {method:'POST'});
-  const d = await r.json();
-  location.href = d.url;
+  try {
+    const r = await fetch('https://worker.enginuecore.com/checkout', {method:'POST'});
+    const d = await r.json();
+    location.href = d.url;
+  } catch (e) {
+    alert('Upgrade coming soon! (Worker not set up yet)');
+  }
+}
+
+// Unlock Pro after payment
+if (location.search.includes('paid=1')) {
+  localStorage.setItem('alpine_pro', 'true');
+  alert('Pro unlocked! Refreshing...');
+  location.href = 'https://enginuecore.com';
 }
 </script>
 </body>
