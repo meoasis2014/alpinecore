@@ -85,7 +85,9 @@
 <script>
 let emulator = null;
 const isPro = localStorage.getItem('alpine_pro') === 'true';
-document.getElementById('status').textContent = isPro ? "Pro user – 4 GB RAM" : "Free tier – 512 MB RAM";
+document.getElementById('status').textContent = isPro 
+  ? "Pro user – 4 GB RAM + persistence" 
+  : "Free tier – 512 MB RAM";
 
 document.getElementById('start').onclick = function() {
   this.style.display = 'none';  // Hide button
