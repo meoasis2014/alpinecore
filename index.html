@@ -21,7 +21,7 @@
   <div id="console"></div>
 </div>
 
-<script src="https://unpkg.com/v86@0.5.276/build/libv86.js"></script>  <!-- BACKUP: Unpkg CDN – absolute, no repo load -->
+<script src="https://enginuecore.com/libv86.js"></script>  <!-- BACKUP: Unpkg CDN – absolute, no repo load -->
 <script>
 const session = crypto.randomUUID();
 const isPro = localStorage.getItem('alpine_pro') === 'true';
@@ -30,13 +30,13 @@ document.getElementById('status').textContent = isPro ? "Pro user – 4 GB RAM" 
 
 const emulator = new V86({  // Absolute URLs only – no relative/ repo expectations
   screen_container: document.getElementById("screen"),
-  wasm_url: "https://unpkg.com/v86@0.5.276/build/v86.wasm",  // ← BACKUP: Unpkg WASM (full absolute)
+  wasm_url: "https://enginuecore.com/v86.wasm",  // ← BACKUP: Unpkg WASM (full absolute)
   memory_size: isPro ? 4*1024*1024*1024 : 512*1024*1024,  // 4GB or 512MB
   bios: { 
-    url: "https://unpkg.com/v86@0.5.276/bios/seabios.bin"  // ← BACKUP: Unpkg BIOS (absolute)
+    url: "https://cdn.jsdelivr.net/npm/v86@0.5.276/bios/seabios.bin"  // ← BACKUP: Unpkg BIOS (absolute)
   },
   vga_bios: { 
-    url: "https://unpkg.com/v86@0.5.276/bios/vgabios.bin"  // ← BACKUP: Unpkg VGA BIOS (absolute)
+    url: "https://cdn.jsdelivr.net/npm/v86@0.5.276/bios/vgabios.bin"  // ← BACKUP: Unpkg VGA BIOS (absolute)
   },
   cdrom: { 
     url: "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/alpine-standard-3.20.0-x86_64.iso" 
