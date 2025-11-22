@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="robots" content="noindex, nofollow" />
-  <title>AlpineCore – Instant Alpine Linux Terminal</title>
+  <title>EnginueCore – Instant Alpine Linux Terminal</title>
   <style>
     body{margin:0;background:#000;color:#0f0;font:18px monospace;overflow:hidden}
     #screen{height:100vh;display:flex;flex-direction:column;background:#000}
@@ -17,8 +17,7 @@
 <body>
 
 <div class="top">
-  AlpineCore – <span id="status">Ready</span>
-  <button onclick="upgrade()">Upgrade to Pro – $19/mo (4 GB RAM + persistence)</button>
+  EnginueCore – <span id="status">Ready</span>
 </div>
 
 <div id="screen">
@@ -27,6 +26,60 @@
   </div>
   <div id="console"></div>
 </div>
+
+
+<div class="plans" id="plans">
+  <div class="plan">
+    <h3>Pro</h3>
+    <div class="price">$19<span style="font-size:16px">/mo</span></div>
+    <ul style="text-align:left">
+      <li>4 GB RAM</li>
+      <li>20 GB disk</li>
+      <li>Real Docker + Portainer</li>
+      <li>yourname.enginuecore.com</li>
+    </ul>
+    <button onclick="upgrade('pro')">Upgrade to Pro</button>
+  </div>
+
+  <div class="plan">
+    <h3>Power User</h3>
+    <div class="price">$49<span style="font-size:16px">/mo</span></div>
+    <ul style="text-align:left">
+      <li>8 GB RAM</li>
+      <li>80 GB disk</li>
+      <li>Unlimited containers</li>
+      <li>SSL + custom domain</li>
+    </ul>
+    <button onclick="upgrade('power')">Get Power User</button>
+  </div>
+
+  <div class="plan">
+    <h3>Web Hosting</h3>
+    <div class="price">$99<span style="font-size:16px">/mo</span></div>
+    <ul style="text-align:left">
+      <li>12 GB RAM</li>
+      <li>200 GB disk</li>
+      <li>Nginx + Node.js pre-installed</li>
+      <li>Unlimited subdomains</li>
+    </ul>
+    <button onclick="upgrade('hosting')">Start Hosting</button>
+  </div>
+
+  <div class="plan">
+    <h3>Production SaaS</h3>
+    <div class="price">$199<span style="font-size:16px">/mo</span></div>
+    <ul style="text-align:left">
+      <li>16–32 GB RAM</li>
+      <li>500 GB–1 TB disk</li>
+      <li>Auto-scale + backups</li>
+      <li>Your own domain (CNAME)</li>
+    </ul>
+    <button onclick="upgrade('production')">Go Production</button>
+  </div>
+</div>
+
+
+
 
 <script src="https://enginuecore.com/build/libv86.js"></script>
 <script>
@@ -73,13 +126,13 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-async function upgrade() {
-  const r = await fetch('https://alpineworker.meoasis2014.workers.dev/checkout', {
-    method: 'POST',
-    mode: 'cors'
+async function upgrade(plan) {
+  const r = await fetch(`https://alpineworker.meoasis2014.workers.dev/checkout?plan=${plan}`, {
+    method: 'POST'
   });
   const d = await r.json();
-  location.href = d.url;
+  if (d.url) location.href = d.url;
+  else alert("Error: " + JSON.stringify(d));
 }
 
 // Unlock Pro after payment (for later)
