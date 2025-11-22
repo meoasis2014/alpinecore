@@ -75,7 +75,8 @@ document.addEventListener('keydown', function(e) {
 
 async function upgrade() {
   const r = await fetch('https://alpineworker.meoasis2014.workers.dev/checkout', {
-    method: 'POST'
+    method: 'POST',
+    mode: 'cors'
   });
   const d = await r.json();
   location.href = d.url;
