@@ -45,7 +45,7 @@ canvas.height = window.innerHeight - 200;
 screenDiv.insertBefore(canvas, screenDiv.firstChild);  
 
   emulator = new V86({
-    screen_container: document.getElementById("screen"),
+    screen_container: screenDiv, 
     wasm_url: "https://enginuecore.com/build/v86.wasm",
     memory_size: isPro ? 4*1024*1024*1024 : 512*1024*1024,
     bios: { url: "https://enginuecore.com/build/seabios.bin" },
