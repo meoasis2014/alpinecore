@@ -285,23 +285,18 @@
         max-height: 70vh;
         overflow: hidden;
         scrollbar-width: none;
-        -ms-overflow-style: none;
-        cursor: none;
+        -ms-overflow-style: none;    
     }
 
     .mac-terminal::-webkit-scrollbar {
         display: none;
     }
 
-    .mac-terminal * {
-        cursor: none !important;
-    }
-
     .terminal-content {
         width: 100%;
         height: 100%;
         margin: 0;
-        padding: 0;
+        padding: 0 20px;
     }
 
     /* FIXED SCREEN CONTAINER */
@@ -311,7 +306,7 @@
         background: #000;
         width: 100%;
         height: 100%;
-        min-height: 400px;
+        min-height: 100%;
         position: relative;
     }
 
