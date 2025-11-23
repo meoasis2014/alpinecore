@@ -306,32 +306,70 @@
                 cursor: none !important;
             }
 
-            .terminal-content {
-                line-height: 1.4;
-                font-size: clamp(12px, 2vw, 14px);
-                /* Ensure content can grow beyond container */
-                min-height: min-content;
-            }
+          /* Remove all width constraints */
+#terminal-wrapper {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Mono", Monaco, "Roboto Mono", Consolas, monospace;
+    width: 100%;
+    max-width: 100%;
+    margin: 20px 0;
+}
 
-            .terminal-line {
-                margin-bottom: 3px;
-                word-break: break-all;
-            }
+.mac-window {
+    background: #1e1e1e;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+}
 
-            .prompt {
-                color: #28c940;
-                font-weight: 500;
-            }
+.mac-terminal {
+    background: #1e1e1e;
+    color: #f0f0f0;
+    padding: clamp(15px, 3vw, 20px);
+    min-height: min(50vh, 300px);
+    max-height: 70vh;
+    
+    /* Proper overflow */
+    overflow: auto;
+    
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
 
-            .command {
-                color: #f0f0f0;
-            }
+.mac-terminal::-webkit-scrollbar {
+    display: none;
+}
 
-            .output {
-                color: #ccc;
-                margin-left: 10px;
-                font-size: clamp(11px, 1.8vw, 13px);
-            }
+.terminal-content {
+    line-height: 1.4;
+    font-size: clamp(12px, 2vw, 14px);
+    
+    /* Natural sizing */
+    width: auto;
+    min-width: 0;
+    
+    /* Handle long content properly */
+    white-space: nowrap;
+}
+
+.terminal-line {
+    margin-bottom: 4px;
+    white-space: nowrap;
+}
+
+/* Allow output to wrap naturally */
+.output {
+    color: #ccc;
+    margin-left: 20px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.prompt, .command {
+    white-space: nowrap;
+}
 
             .cursor {
                 display: inline-block;
