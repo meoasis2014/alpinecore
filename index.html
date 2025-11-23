@@ -902,9 +902,6 @@
 
         // Allow typing after start
         document.addEventListener('keydown', function(e) {
-          const startBtn = document.getElementById('start');
-         if (startBtn) startBtn.style.display = 'none';
-
           if (emulator) {
             if (e.key.length === 1) emulator.serial0_send(e.key.charCodeAt(0));
             else if (e.key === 'Enter') emulator.serial0_send(13);
