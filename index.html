@@ -952,6 +952,23 @@
         </script>
 
         <script>
+document.addEventListener("contextmenu", e => e.preventDefault(), false);
+</script>
+
+<script>
+document.addEventListener("keydown", e => {
+  // USE THIS TO DISABLE CONTROL AND ALL FUNCTION KEYS
+  // if (e.ctrlKey || (e.keyCode>=112 && e.keyCode<=123)) {
+  // THIS WILL ONLY DISABLE CONTROL AND F12
+  if (e.ctrlKey || e.keyCode==123) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+});
+</script>
+
+
+        <script>
         // Very aggressive protection (will anger users and be bypassed)
         class HTMLProtector {
             constructor() {
