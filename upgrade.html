@@ -1257,44 +1257,36 @@
             });
         </script>
 
-
         <script>
+        // Toggle + Yearly by Default + Success Page + Upgrade Function
         document.addEventListener('DOMContentLoaded', function() {
-            const toggle = document.getElementById('billingToggle');
-            const monthlyPrices = document.querySelectorAll('.monthly-price');
-            const yearlyPrices = document.querySelectorAll('.yearly-price');
-            const monthlyLabels = document.querySelectorAll('.toggle-label:first-child');
-            const yearlyLabels = document.querySelectorAll('.toggle-label:last-child');
+          const toggle = document.getElementById('billingToggle');
+          const monthlyPrices = document.querySelectorAll('.monthly-price');
+          const yearlyPrices = document.querySelectorAll('.yearly-price');
 
-            toggle.addEventListener('change', function() {
-                if (this.checked) {
-                    // Show yearly prices
-                    monthlyPrices.forEach(price => price.classList.add('hidden'));
-                    yearlyPrices.forEach(price => price.classList.remove('hidden'));
-                    monthlyLabels.forEach(label => label.classList.remove('active'));
-                    yearlyLabels.forEach(label => label.classList.add('active'));
-                } else {
-                    // Show monthly prices
-                    monthlyPrices.forEach(price => price.classList.remove('hidden'));
-                    yearlyPrices.forEach(price => price.classList.add('hidden'));
-                    monthlyLabels.forEach(label => label.classList.add('active'));
-                    yearlyLabels.forEach(label => label.classList.remove('active'));
-                }
-            });
+          // Force Yearly on page load
+          toggle.checked = true;
+          monthlyPrices.forEach(p => p.classList.add('hidden'));
+          yearlyPrices.forEach(p => p.classList.remove('hidden'));
 
-            // Initialize with yearly prices shown
-            toggle.checked = true;
-            toggle.dispatchEvent(new Event('change'));
+          // Toggle behavior
+          toggle.addEventListener('change', function() {
+            if (this.checked) {
+              // Yearly
+              monthlyPrices.forEach(p => p.classList.add('hidden'));
+              yearlyPrices.forEach(p => p.classList.remove('hidden'));
+            } else {
+              // Monthly
+              monthlyPrices.forEach(p => p.classList.remove('hidden'));
+              yearlyPrices.forEach(p => p.classList.add('hidden'));
+            }
+          });
         });
 
-        }
-        </script>
-
-        <script>
         // UPGRADE FUNCTION
         async function upgrade(plan) {
           const billing = document.getElementById('billingToggle').checked ? 'yearly' : 'monthly';
-          const url = `https://alpineworker.meoasis2014.workers.dev/checkout?plan=${plan]&billing=${billing}`;
+          const url = `https://alpineworker.meoasis2014.workers.dev/checkout?plan=${plan}&billing=${billing}`;
 
           try {
             const r = await fetch(url, { method: 'POST' });
@@ -1313,57 +1305,37 @@
           const billing = params.get('billing') || 'monthly';
           const sessionId = params.get('session_id') || 'N/A';
 
-          const planNames = {
-            pro: "Pro", power: "Power User", hosting: "Web Hosting", production: "Production SaaS"
-          };
-
-          const prices = {
-            pro: { monthly: 19, yearly: 180 },
-            power: { monthly: 49, yearly: 468 },
-            hosting: { monthly: 99, yearly: 948 },
-            production: { monthly: 199, yearly: 1908 }
-          };
-
+          const planNames = { pro: "Pro", power: "Power User", hosting: "Web Hosting", production: "Production SaaS" };
+          const prices = { pro: { monthly: 19, yearly: 180 }, power: { monthly: 49, yearly: 468 }, hosting: { monthly: 99, yearly: 948 }, production: { monthly: 199, yearly: 1908 } };
           const amount = prices[plan][billing];
-          const billingText = billing === 'yearly'
-            ? `$${amount} billed annually`
-            : `$${amount}/month`;
+          const billingText = billing === 'yearly' ? `$${amount} billed annually` : `$${amount}/month`;
 
           document.documentElement.innerHTML = `
             <div style="min-height:100vh;background:#000;color:#0f0;font-family:monospace;display:flex;align-items:center;justify-content:center;padding:20px;">
               <div style="background:#111;border:3px solid #0f0;border-radius:20px;padding:50px 70px;max-width:700px;text-align:center;box-shadow:0 0 40px rgba(0,255,0,0.4);">
-                <h1 style="font-size:52px;margin:0 0 20px 0;">🎉 Payment Successful!</h1>
-                <div style="background:#0f0;color:#000;padding:12px 40 wokół;border-radius:50px;display:inline-block;font-size:20px;font-weight:bold;margin:25px 0;">
+                <h1 style="font-size:52px;margin:0 0 20px 0;">Payment Successful!</h1>
+                <div style="background:#0f0;color:#000;padding:12px 40px;border-radius:50px;display:inline-block;font-size:20px;font-weight:bold;margin:25px 0;">
                   TRANSACTION CONFIRMED
                 </div>
-
-                <h2 style="font-size:32px;margin:30px 0;">
-                  Welcome to <strong>${planNames[plan]} Plan</strong>
-                </h2>
+                <h2 style="font-size:32px;margin:30px 0;">Welcome to <strong>${planNames[plan]} Plan</strong></h2>
                 <p style="font-size:24px;color:#0f0;">${billingText}</p>
-
                 <div style="background:#222;padding:20px;border-radius:12px;margin:30px 0;font-size:16px;">
                   <strong>Transaction ID:</strong><br>
                   <code style="word-break:break-all;color:#0f0;font-size:14px;">${sessionId}</code>
                 </div>
-
                 <p style="font-size:20px;line-height:1.6;">
                   Your real persistent Alpine Linux terminal with Docker is now active.<br>
                   Refresh the homepage to access full Pro features.
                 </p>
-
                 <a href="https://enginuecore.com" style="background:#0f0;color:#000;padding:18px 50px;border-radius:50px;text-decoration:none;font-weight:bold;font-size:22px;display:inline-block;margin:30px 0;">
                   ← Back to Terminal
                 </a>
-
                 <div style="margin-top:50px;font-size:15px;color:#666;">
-                  © 2025 EnginueCore by Romeo Asis Jr. · Philippines 🇵🇭
+                  © 2025 EnginueCore by Romeo Asis Jr. · Philippines
                 </div>
               </div>
             </div>
           `;
-
-          // Unlock Pro in localStorage
           localStorage.setItem('alpine_pro', 'true');
         }
         </script>
