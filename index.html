@@ -285,7 +285,7 @@
         max-height: 70vh;
         overflow: auto;
         scrollbar-width: none;
-        -ms-overflow-style: none;    
+        -ms-overflow-style: none;
     }
 
     .mac-terminal::-webkit-scrollbar {
@@ -316,21 +316,21 @@
         height: 100% !important;
         display: block;
         background: #000;
-        
+
         /* Crisp pixel rendering */
         image-rendering: -moz-crisp-edges;
         image-rendering: -webkit-crisp-edges;
         image-rendering: pixelated;
         image-rendering: crisp-edges;
-        
+
         /* Prevent blurry scaling */
         transform: translateZ(0);
         backface-visibility: hidden;
-        
+
         /* Fixed dimensions for stable display */
         min-width: 1024px;
         min-height: 768px;
-        
+
         /* Center and contain */
         object-fit: contain;
         margin: 0 auto;
@@ -352,7 +352,7 @@
         white-space: pre-wrap;
         word-break: break-all;
         tab-size: 4;
-        
+
         /* Crisp text rendering */
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -360,7 +360,7 @@
 
     /* Center the start button properly */
     #screen > div {
-        width: 100%;     
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -778,10 +778,7 @@
                         <li><a href="#">Home</a></li>
                         <li><a href="#">Upgrade To Pro</a></li>
                         <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">About</a></li>
                         <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Sitemap</a></li>
                     </ul>
                 </p>
                 <p>
@@ -867,20 +864,20 @@
           this.style.display = 'none';  // Hide button
 
       const screenDiv = document.getElementById('screen');
-  
+
   // Remove any existing canvas
   const existingCanvas = document.getElementById('vga-canvas');
   if (existingCanvas) {
     existingCanvas.remove();
   }
-  
+
   // Create new canvas that fills the terminal
   const canvas = document.createElement('canvas');
   canvas.id = 'vga-canvas';
   canvas.style.width = '100%';
   canvas.style.height = '100%';
   canvas.style.display = 'block';
-  
+
   // Insert at the beginning of screen div
   screenDiv.insertBefore(canvas, screenDiv.firstChild);
 
@@ -907,7 +904,7 @@
         document.addEventListener('keydown', function(e) {
           const startBtn = document.getElementById('start');
          if (startBtn) startBtn.style.display = 'none';
-            
+
           if (emulator) {
             if (e.key.length === 1) emulator.serial0_send(e.key.charCodeAt(0));
             else if (e.key === 'Enter') emulator.serial0_send(13);
@@ -944,7 +941,7 @@ document.addEventListener('keydown', function(e) {
       }
     }
   }
-});   
+});
 
         // Unlock Pro after payment (for later)
         if (localStorage.getItem('alpine_pro') === 'true') {
