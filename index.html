@@ -369,7 +369,7 @@
         top: 0;
         left: 0;
         z-index: 10;
-        padding: 15px 0 0;
+        padding: 15px 0;
     }
 
     #start {
@@ -925,6 +925,27 @@
           if (d.url) location.href = d.url;
           else alert("Error: " + JSON.stringify(d));
         }
+
+         // Ctrl + F + S → Full screen (#screen)
+document.addEventListener('keydown', function(e) {
+  // Detect Ctrl + F + S (or Cmd + F + S on Mac)
+  if (e.ctrlKey || e.metaKey) {
+    if (e.key === 'f' || e.key === 'F') {
+      e.preventDefault(); // prevent browser search
+    }
+    if (e.key === 's' || e.key === 'S') {
+      e.preventDefault();
+      const elem = document.getElementById('screen');
+      if (elem) {
+        if (!document.fullscreenElement) {
+          elem.requestFullscreen?.() || elem.webkitRequestFullscreen?.() || elem.mozRequestFullScreen?.();
+        } else {
+          document.exitFullscreen?.() || document.webkitExitFullscreen?.() || document.mozCancelFullScreen?.();
+        }
+      }
+    }
+  }
+});   
 
         // Unlock Pro after payment (for later)
         if (localStorage.getItem('alpine_pro') === 'true') {
