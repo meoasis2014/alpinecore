@@ -1287,7 +1287,10 @@
             toggle.dispatchEvent(new Event('change'));
         });
 
+        }
+        </script>
 
+        <script>
         // UPGRADE FUNCTION
         async function upgrade(plan) {
           const billing = document.getElementById('billingToggle').checked ? 'yearly' : 'monthly';
@@ -1354,14 +1357,14 @@
                 </a>
 
                 <div style="margin-top:50px;font-size:15px;color:#666;">
-                  © 2025 EnginueCore | All Rights reserved.
+                  © 2025 EnginueCore by Romeo Asis Jr. · Philippines 🇵🇭
                 </div>
               </div>
             </div>
           `;
 
           // Unlock Pro in localStorage
-          //localStorage.setItem('alpine_pro', 'true');
+          localStorage.setItem('alpine_pro', 'true');
         }
         </script>
     </body>
