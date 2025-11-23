@@ -307,7 +307,8 @@
             }
 
           /* Remove all width constraints */
-#terminal-wrapper {
+
+            #terminal-wrapper {
     font-family: -apple-system, BlinkMacSystemFont, "SF Mono", Monaco, "Roboto Mono", Consolas, monospace;
     width: 100%;
     max-width: 100%;
@@ -324,51 +325,128 @@
 }
 
 .mac-terminal {
-    background: #1e1e1e;
+    background: #000;
     color: #f0f0f0;
-    padding: clamp(15px, 3vw, 20px);
-    min-height: min(50vh, 300px);
+    padding: 0; /* Remove padding to let canvas fill space */
+    min-height: min(60vh, 400px);
     max-height: 70vh;
-    
-    /* Proper overflow */
-    overflow: auto;
-    
-    /* Hide scrollbar */
+    overflow: hidden; /* Change to hidden since canvas will handle it */
     scrollbar-width: none;
     -ms-overflow-style: none;
+    cursor: none;
 }
 
 .mac-terminal::-webkit-scrollbar {
     display: none;
 }
 
+.mac-terminal * {
+    cursor: none !important;
+}
+
 .terminal-content {
-    line-height: 1.4;
-    font-size: clamp(12px, 2vw, 14px);
-    
-    /* Natural sizing */
-    width: auto;
-    min-width: 0;
-    
-    /* Handle long content properly */
-    white-space: nowrap;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-.terminal-line {
-    margin-bottom: 4px;
-    white-space: nowrap;
+/* Fix the screen container */
+#screen {
+    display: flex;
+    flex-direction: column;
+    background: #000;
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
 }
 
-/* Allow output to wrap naturally */
-.output {
-    color: #ccc;
-    margin-left: 20px;
+/* Fix canvas styling */
+#vga-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    display: block;
+    background: #000;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    flex: 1;
+}
+
+/* Fix console output */
+#console {
+    height: auto;
+    min-height: 30px;
+    max-height: 100px;
+    overflow: auto;
+    background: #000;
+    padding: 10px;
+    color: #0f0;
+    font: 14px monospace;
+    border-top: 1px solid #333;
     white-space: pre-wrap;
     word-break: break-word;
 }
 
-.prompt, .command {
-    white-space: nowrap;
+/* Center the start button properly */
+#screen > div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+}
+
+#start {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #28c940 0%, #1ea832 100%);
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 30px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(40, 201, 64, 0.3);
+    z-index: 100;
+}
+
+#start:hover {
+    background: linear-gradient(135deg, #32e04a 0%, #24c036 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 201, 64, 0.4);
+}
+
+#start span::before {
+    content: ">_";
+    font-size: 1.1em;
+    margin-right: 6px;
+    font-weight: bold;
+}
+
+/* Mobile responsive fixes */
+@media (max-width: 768px) {
+    .mac-terminal {
+        min-height: 50vh;
+        max-height: 60vh;
+    }
+    
+    #screen {
+        min-height: 300px;
+    }
+    
+    #start {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
 }
 
             .cursor {
@@ -935,12 +1013,23 @@
         document.getElementById('start').onclick = function() {
           this.style.display = 'none';  // Hide button
 
-          const screenDiv = document.getElementById('screen');
-        const canvas = document.createElement('canvas');
-        canvas.id = 'vga-canvas';
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight - 200;
-        screenDiv.insertBefore(canvas, screenDiv.firstChild);
+      const screenDiv = document.getElementById('screen');
+  
+  // Remove any existing canvas
+  const existingCanvas = document.getElementById('vga-canvas');
+  if (existingCanvas) {
+    existingCanvas.remove();
+  }
+  
+  // Create new canvas that fills the terminal
+  const canvas = document.createElement('canvas');
+  canvas.id = 'vga-canvas';
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
+  canvas.style.display = 'block';
+  
+  // Insert at the beginning of screen div
+  screenDiv.insertBefore(canvas, screenDiv.firstChild);
 
           emulator = new V86({
             screen_container: screenDiv,
