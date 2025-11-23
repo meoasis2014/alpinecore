@@ -1287,22 +1287,81 @@
             toggle.dispatchEvent(new Event('change'));
         });
 
+
+        // UPGRADE FUNCTION
         async function upgrade(plan) {
           const billing = document.getElementById('billingToggle').checked ? 'yearly' : 'monthly';
-          const url = `https://alpineworker.meoasis2014.workers.dev/checkout?plan=${plan}&billing=${billing}`;
+          const url = `https://alpineworker.meoasis2014.workers.dev/checkout?plan=${plan]&billing=${billing}`;
 
           try {
             const r = await fetch(url, { method: 'POST' });
             const d = await r.json();
-
-            if (d.url) {
-              location.href = d.url;
-            } else {
-              alert("Error: " + (d.error || "Unknown error"));
-            }
+            if (d.url) location.href = d.url;
+            else alert("Error: " + (d.error || "Unknown"));
           } catch (e) {
-            alert("Network error – check console (F12)");
+            alert("Network error – check console");
           }
+        }
+
+        // SUCCESS PAGE – REPLACES ENTIRE PAGE WHEN PAYMENT IS DONE
+        if (location.search.includes('paid=1')) {
+          const params = new URLSearchParams(location.search);
+          const plan = params.get('plan') || 'Pro';
+          const billing = params.get('billing') || 'monthly';
+          const sessionId = params.get('session_id') || 'N/A';
+
+          const planNames = {
+            pro: "Pro", power: "Power User", hosting: "Web Hosting", production: "Production SaaS"
+          };
+
+          const prices = {
+            pro: { monthly: 19, yearly: 180 },
+            power: { monthly: 49, yearly: 468 },
+            hosting: { monthly: 99, yearly: 948 },
+            production: { monthly: 199, yearly: 1908 }
+          };
+
+          const amount = prices[plan][billing];
+          const billingText = billing === 'yearly'
+            ? `$${amount} billed annually`
+            : `$${amount}/month`;
+
+          document.documentElement.innerHTML = `
+            <div style="min-height:100vh;background:#000;color:#0f0;font-family:monospace;display:flex;align-items:center;justify-content:center;padding:20px;">
+              <div style="background:#111;border:3px solid #0f0;border-radius:20px;padding:50px 70px;max-width:700px;text-align:center;box-shadow:0 0 40px rgba(0,255,0,0.4);">
+                <h1 style="font-size:52px;margin:0 0 20px 0;">🎉 Payment Successful!</h1>
+                <div style="background:#0f0;color:#000;padding:12px 40 wokół;border-radius:50px;display:inline-block;font-size:20px;font-weight:bold;margin:25px 0;">
+                  TRANSACTION CONFIRMED
+                </div>
+
+                <h2 style="font-size:32px;margin:30px 0;">
+                  Welcome to <strong>${planNames[plan]} Plan</strong>
+                </h2>
+                <p style="font-size:24px;color:#0f0;">${billingText}</p>
+
+                <div style="background:#222;padding:20px;border-radius:12px;margin:30px 0;font-size:16px;">
+                  <strong>Transaction ID:</strong><br>
+                  <code style="word-break:break-all;color:#0f0;font-size:14px;">${sessionId}</code>
+                </div>
+
+                <p style="font-size:20px;line-height:1.6;">
+                  Your real persistent Alpine Linux terminal with Docker is now active.<br>
+                  Refresh the homepage to access full Pro features.
+                </p>
+
+                <a href="https://enginuecore.com" style="background:#0f0;color:#000;padding:18px 50px;border-radius:50px;text-decoration:none;font-weight:bold;font-size:22px;display:inline-block;margin:30px 0;">
+                  ← Back to Terminal
+                </a>
+
+                <div style="margin-top:50px;font-size:15px;color:#666;">
+                  © 2025 EnginueCore | All Rights reserved.
+                </div>
+              </div>
+            </div>
+          `;
+
+          // Unlock Pro in localStorage
+          //localStorage.setItem('alpine_pro', 'true');
         }
         </script>
     </body>
