@@ -14,6 +14,12 @@
            padding: 0;
            box-sizing: border-box;
        }
+
+       .price {
+           font-size: 2rem;
+           font-weight: 800;
+       }
+
        .footer strong {
            font-weight: bold;
        }
@@ -872,9 +878,13 @@
 
     .billing-note {
         font-size: 0.8rem;
-        color: #28c940;
-        font-weight: 600;
-        margin-top: 5px;
+            color: #444;
+            font-weight: 100;
+            border: dashed 1px #444;
+            padding: 6px 0;
+            max-width: 150px;
+            margin: 10px auto 0;
+            background: #f9f9f9;
     }
 
     .features {
@@ -1081,11 +1091,11 @@
                                 <div class="billing-note">billed annually ($180)</div>
                             </div>
                             <ul class="features">
-                                <li>✓ 4 GB RAM</li>
-                                <li>✓ 20 GB SSD Storage</li>
-                                <li>✓ Real Docker + Portainer</li>
+                                <li>✓ 1 GB RAM</li>
+                                <li>✓ 1 GB SSD Storage</li>
+                                <li>✓ Pro Dashboard</li>
                                 <li>✓ yourname.enginuecore.com</li>
-                                <li>✓ 24/7 Basic Support</li>
+                                <li>✓ Chat & Email Support</li>
                             </ul>
                             <button class="plan-btn" onclick="upgrade('pro')">Upgrade to Pro</button>
                         </div>
@@ -1105,9 +1115,9 @@
                                 <div class="billing-note">billed annually ($468)</div>
                             </div>
                             <ul class="features">
-                                <li>✓ 8 GB RAM</li>
-                                <li>✓ 80 GB SSD Storage</li>
-                                <li>✓ Unlimited Containers</li>
+                                <li>✓ 2 GB RAM</li>
+                                <li>✓ 10 GB SSD Storage</li>
+                                <li>✓ Pro Dashboard</li>
                                 <li>✓ SSL + Custom Domain</li>
                                 <li>✓ Priority Support</li>
                                 <li>✓ Automated Backups</li>
@@ -1129,9 +1139,9 @@
                                 <div class="billing-note">billed annually ($948)</div>
                             </div>
                             <ul class="features">
-                                <li>✓ 12 GB RAM</li>
-                                <li>✓ 200 GB SSD Storage</li>
-                                <li>✓ Nginx + Node.js Pre-installed</li>
+                                <li>✓ 4 GB RAM</li>
+                                <li>✓ 100 GB SSD Storage</li>
+                                <li>✓ Pro Dashboard</li>
                                 <li>✓ Unlimited Subdomains</li>
                                 <li>✓ Advanced Monitoring</li>
                                 <li>✓ 99.9% Uptime SLA</li>
@@ -1153,8 +1163,9 @@
                                 <div class="billing-note">billed annually ($1,908)</div>
                             </div>
                             <ul class="features">
-                                <li>✓ 16–32 GB RAM</li>
-                                <li>✓ 500 GB–1 TB SSD Storage</li>
+                                <li>✓ 8 GB RAM</li>
+                                <li>✓ 250 GB SSD Storage</li>
+                                <li>✓ Pro Dashboard</li>
                                 <li>✓ Auto-scale + Backups</li>
                                 <li>✓ Your Own Domain (CNAME)</li>
                                 <li>✓ Dedicated Support Manager</li>
