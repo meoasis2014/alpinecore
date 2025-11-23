@@ -364,11 +364,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #000;
+        background: transparent;
         position: absolute;
         top: 0;
         left: 0;
         z-index: 10;
+        padding: 15px 0 0;
     }
 
     #start {
@@ -533,6 +534,12 @@
     .horizontal-nav a:hover {
         color: #fc5e08;
     }
+
+     @media (min-width: 768px) {
+         #terminal-wrapper{
+             max-width: 750px;
+         }
+     }
 
     /* Mobile responsive */
     @media (max-width: 768px) {
