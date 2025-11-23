@@ -1311,30 +1311,358 @@
           const billingText = billing === 'yearly' ? `$${amount} billed annually` : `$${amount}/month`;
 
           document.documentElement.innerHTML = `
-            <div style="min-height:100vh;background:#000;color:#0f0;font-family:monospace;display:flex;align-items:center;justify-content:center;padding:20px;">
-              <div style="background:#111;border:3px solid #0f0;border-radius:20px;padding:50px 70px;max-width:700px;text-align:center;box-shadow:0 0 40px rgba(0,255,0,0.4);">
-                <h1 style="font-size:52px;margin:0 0 20px 0;">Payment Successful!</h1>
-                <div style="background:#0f0;color:#000;padding:12px 40px;border-radius:50px;display:inline-block;font-size:20px;font-weight:bold;margin:25px 0;">
-                  TRANSACTION CONFIRMED
-                </div>
-                <h2 style="font-size:32px;margin:30px 0;">Welcome to <strong>${planNames[plan]} Plan</strong></h2>
-                <p style="font-size:24px;color:#0f0;">${billingText}</p>
-                <div style="background:#222;padding:20px;border-radius:12px;margin:30px 0;font-size:16px;">
-                  <strong>Transaction ID:</strong><br>
-                  <code style="word-break:break-all;color:#0f0;font-size:14px;">${sessionId}</code>
-                </div>
-                <p style="font-size:20px;line-height:1.6;">
-                  Your real persistent Alpine Linux terminal with Docker is now active.<br>
-                  Refresh the homepage to access full Pro features.
-                </p>
-                <a href="https://enginuecore.com" style="background:#0f0;color:#000;padding:18px 50px;border-radius:50px;text-decoration:none;font-weight:bold;font-size:22px;display:inline-block;margin:30px 0;">
-                  ← Back to Terminal
-                </a>
-                <div style="margin-top:50px;font-size:15px;color:#666;">
-                  © 2025 EnginueCore by Romeo Asis Jr. · Philippines
-                </div>
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Payment Confirmation - EnginueCore Pro</title>
+              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+              <style>
+              @import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
+                  * {
+                      margin: 0;
+                      padding: 0;
+                      box-sizing: border-box;
+                      font-family: 'Ubuntu', Tahoma, Geneva, Verdana, sans-serif;
+                  }
+
+                  body {
+                      min-height: 100vh;
+                      background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      padding: 20px;
+                      color: #333;
+                  }
+
+                  .container {
+                      max-width: 800px;
+                      width: 100%;
+                      margin: 0 auto;
+                  }
+
+                  .logo-container {
+                      text-align: center;
+                      margin-bottom: 30px;
+                      padding: 0 20px;
+                  }
+
+                  .logo-container img {
+                      max-width: 190px;
+                      height: auto;
+                      transition: transform 0.3s ease;
+                  }
+
+                  .logo-container img:hover {
+                      transform: scale(1.05);
+                  }
+
+                  .card {
+                      background: #fff;
+                      border-radius: 16px;
+                      padding: 50px 60px;
+                      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+                      text-align: center;
+                      position: relative;
+                      overflow: hidden;
+                      border: 2px dashed #ff6b6b;
+                  }
+
+                  .test-banner {
+                      background: #ff6b6b;
+                      color: white;
+                      padding: 12px;
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      right: 0;
+                      text-align: center;
+                      font-weight: bold;
+                      font-size: 14px;
+                      z-index: 10;
+                  }
+
+                  .card::before {
+                      content: '';
+                      position: absolute;
+                      top: 40px;
+                      left: 0;
+                      width: 100%;
+                      height: 5px;
+                      background: linear-gradient(90deg, #2c5aa0, #3a7bd5);
+                  }
+
+                  .success-icon {
+                      width: 80px;
+                      height: 80px;
+                      background: #e8f5e9;
+                      border-radius: 50%;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      margin: 40px auto 25px;
+                      color: #4caf50;
+                      font-size: 36px;
+                      border: 3px solid #4caf50;
+                  }
+
+                  h1 {
+                      font-size: 36px;
+                      margin-bottom: 15px;
+                      color: #2c3e50;
+                      font-weight: 600;
+                  }
+
+                  .subtitle {
+                      font-size: 18px;
+                      color: #7f8c8d;
+                      margin-bottom: 30px;
+                      line-height: 1.5;
+                  }
+
+                  .badge {
+                      background: #e8f5e9;
+                      color: #2e7d32;
+                      padding: 12px 30px;
+                      border-radius: 50px;
+                      display: inline-block;
+                      font-size: 16px;
+                      font-weight: 600;
+                      margin: 25px 0;
+                      border: 1px solid #c8e6c9;
+                  }
+
+                  .plan-info {
+                      background: #f8f9fa;
+                      padding: 25px;
+                      border-radius: 12px;
+                      margin: 30px 0;
+                      border-left: 4px solid #3a7bd5;
+                  }
+
+                  .plan-name {
+                      font-size: 28px;
+                      margin-bottom: 10px;
+                      color: #2c3e50;
+                  }
+
+                  .billing-info {
+                      font-size: 18px;
+                      color: #34495e;
+                      margin: 15px 0;
+                  }
+
+                  .transaction-details {
+                      background: #f8f9fa;
+                      padding: 20px;
+                      border-radius: 10px;
+                      margin: 30px 0;
+                      text-align: left;
+                      border: 1px solid #eaeaea;
+                  }
+
+                  .transaction-id {
+                      font-family: monospace;
+                      background: #fff;
+                      padding: 12px;
+                      border-radius: 6px;
+                      margin-top: 10px;
+                      word-break: break-all;
+                      font-size: 14px;
+                      border: 1px solid #e0e0e0;
+                      color: #2c3e50;
+                  }
+
+                  .features-list {
+                      text-align: left;
+                      margin: 30px 0;
+                      padding-left: 20px;
+                  }
+
+                  .features-list li {
+                      margin-bottom: 12px;
+                      color: #555;
+                      line-height: 1.5;
+                  }
+
+                  .test-info {
+                      background: #fff3cd;
+                      border: 1px solid #ffeaa7;
+                      border-radius: 8px;
+                      padding: 15px;
+                      margin: 20px 0;
+                      text-align: left;
+                      font-size: 14px;
+                      color: #856404;
+                  }
+
+                  .test-info code {
+                      background: #fff;
+                      padding: 2px 6px;
+                      border-radius: 4px;
+                      font-family: monospace;
+                      font-size: 12px;
+                  }
+
+                  .btn {
+                      background: #3a7bd5;
+                      color: white;
+                      padding: 16px 45px;
+                      border-radius: 50px;
+                      text-decoration: none;
+                      font-weight: 600;
+                      font-size: 18px;
+                      display: inline-block;
+                      margin: 30px 0;
+                      transition: all 0.3s ease;
+                      border: none;
+                      cursor: pointer;
+                      box-shadow: 0 4px 15px rgba(58, 123, 213, 0.3);
+                  }
+
+                  .btn:hover {
+                      background: #2c5aa0;
+                      transform: translateY(-2px);
+                      box-shadow: 0 6px 20px rgba(58, 123, 213, 0.4);
+                  }
+
+                  .footer {
+                      margin-top: 50px;
+                      font-size: 14px;
+                      color: #7f8c8d;
+                      border-top: 1px solid #eee;
+                      padding-top: 20px;
+                  }
+
+                  @media (max-width: 768px) {
+                      .card {
+                          padding: 40px 25px 30px;
+                      }
+
+                      .logo-container {
+                          margin-bottom: 20px;
+                      }
+
+                      .logo-container img {
+                          max-width: 160px;
+                      }
+
+                      h1 {
+                          font-size: 28px;
+                      }
+
+                      .plan-name {
+                          font-size: 24px;
+                      }
+
+                      .btn {
+                          padding: 14px 35px;
+                          font-size: 16px;
+                      }
+
+                      .success-icon {
+                          width: 70px;
+                          height: 70px;
+                          font-size: 32px;
+                          margin: 30px auto 20px;
+                      }
+                  }
+
+                  @media (max-width: 480px) {
+                      .card {
+                          padding: 35px 20px 25px;
+                      }
+
+                      .logo-container img {
+                          max-width: 140px;
+                      }
+
+                      h1 {
+                          font-size: 24px;
+                      }
+
+                      .plan-name {
+                          font-size: 20px;
+                      }
+
+                      .badge {
+                          padding: 10px 20px;
+                          font-size: 14px;
+                      }
+
+                      .test-banner {
+                          font-size: 12px;
+                          padding: 10px;
+                      }
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <div class="logo-container">
+                      <img width="190" src="ecore_logo.svg" alt="EnginueCore Pro Logo"/>
+                  </div>
+
+                  <div class="card">
+                      <div class="test-banner">
+                          🧪 TEST MODE - This is a test transaction using Stripe test mode
+                      </div>
+
+                      <div class="success-icon">
+                          <i class="fas fa-check"></i>
+                      </div>
+
+                      <h1>Payment Successful</h1>
+                      <p class="subtitle">Thank you for your purchase. Your transaction has been completed successfully.</p>
+
+                      <div class="badge">
+                          <i class="fas fa-shield-alt"></i> TRANSACTION CONFIRMED
+                      </div>
+
+                      <div class="plan-info">
+                          <h2 class="plan-name">${planNames[plan]} Plan</h2>
+                          <p class="billing-info">${billingText}</p>
+                      </div>
+
+                      <div class="transaction-details">
+                          <strong>Transaction ID:</strong>
+                          <div class="transaction-id">${sessionId}</div>
+                      </div>
+
+                      <div class="test-info">
+                          <strong>🧪 Test Mode Information</strong><br>
+                          This is a test transaction using Stripe test mode. No real money was charged.<br>
+                          Use test card: <code>4242 4242 4242 4242</code> for successful payments.
+                      </div>
+
+                      <p style="font-size: 18px; line-height: 1.6; margin: 25px 0;">
+                          Your account has been upgraded successfully. You now have access to all Professional features.
+                      </p>
+
+                      <ul class="features-list">
+                          <li><i class="fas fa-check" style="color: #4caf50; margin-right: 8px;"></i> Full Alpine Linux terminal with Docker support</li>
+                          <li><i class="fas fa-check" style="color: #4caf50; margin-right: 8px;"></i> Priority customer support</li>
+                          <li><i class="fas fa-check" style="color: #4caf50; margin-right: 8px;"></i> Advanced security features</li>
+                          <li><i class="fas fa-check" style="color: #4caf50; margin-right: 8px;"></i> Increased storage capacity</li>
+                      </ul>
+
+                      <a href="https://enginuecore.com" class="btn">
+                          <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Return to Dashboard
+                      </a>
+
+                      <div class="footer">
+                          <p>© 2025 EnginueCore Pro • All Rights reserved.</p>
+                          <p style="margin-top: 8px; font-size: 13px;">
+                              Need help? <a href="mailto:info@enginuecore.com" style="color: #3a7bd5; text-decoration: none;">Contact our support team</a>
+                          </p>
+                      </div>
+                  </div>
               </div>
-            </div>
+          </body>
+          </html>
           `;
           localStorage.setItem('alpine_pro', 'true');
         }
