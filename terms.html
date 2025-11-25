@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/png" href="./ecore_logo.png" />
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="copyright" content="EnginueCore">
+        <title>EnginueCore Terms & Conditions</title>
+        <style>
+        @import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .footer strong {
+            font-weight: bold;
+        }
+
+        body {
+            background-color: #ffffff;
+            overflow-x: hidden;
+            font-family: "Ubuntu", Tahoma, Geneva, Verdana, sans-serif;
+            color: #222;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            gap: 3px;
+        }
+
+        .header {
+            width: 100%;
+            max-width: 1200px;
+            text-align: center;
+            z-index: 10;
+            color: #222;
+            margin-top: 0px;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1rem;
+            color: #fc5e08;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            line-height: 1.2;
+        }
+
+        .header h1 span {
+            font-size: inherit;
+            font-weight: 400;
+            margin-left: 0.5rem;
+            color: #444;
+        }
+
+        .header h2 {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .header p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: 300;
+            max-width: 900px;
+            line-height: 1.6;
+            text-align: center;
+            margin: 0 auto 2rem;
+            padding: 0 15px;
+        }
+
+        #logo-tools {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 0 15px;
+        }
+
+        #logo-tools img {
+            width: clamp(120px, 25vw, 180px);
+            height: auto;
+        }
+
+        .button-actions .button {
+            line-height: 1;
+            text-decoration: none;
+            display: inline-flex;
+            border: none;
+            cursor: pointer;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: #0d641a;
+            color: #fff;
+            border-radius: 10rem;
+            font-weight: 600;
+            padding: clamp(0.6rem, 2vw, 0.75rem) clamp(1.2rem, 3vw, 1.5rem);
+            padding-left: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: background-color 0.3s;
+            font-family: "Ubuntu", Tahoma, Geneva, Verdana, sans-serif;
+            font-size: clamp(16px, 2vw, 20px);
+        }
+
+        .button-actions .button__icon-wrapper {
+            flex-shrink: 0;
+            width: clamp(20px, 4vw, 25px);
+            height: clamp(20px, 4vw, 25px);
+            position: relative;
+            color: var(--clr);
+            background-color: #fff;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+        }
+
+        .button-actions .button:hover {
+            background-color: #000;
+        }
+
+        .button-actions .button:hover .button__icon-wrapper {
+            color: #000;
+        }
+
+        .button-actions .button__icon-svg--copy {
+            position: absolute;
+            transform: translate(-150%, 150%);
+        }
+
+        .button-actions .button:hover .button__icon-svg:first-child {
+            transition: transform 0.3s ease-in-out;
+            transform: translate(150%, -150%);
+        }
+
+        .button-actions .button:hover .button__icon-svg--copy {
+            transition: transform 0.3s ease-in-out 0.1s;
+            transform: translate(0);
+        }
+
+        .typing-text {
+            display: inline-block;
+            position: relative;
+        }
+
+        .typing-text::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid currentColor;
+            animation:
+                typing 2.5s steps(40) forwards,
+                blink-cursor 1s infinite 2.5s;
+            animation-delay: 0.5s;
+        }
+
+        .typing-text::after {
+            content: attr(data-text);
+            opacity: 0;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-cursor {
+            from,
+            to {
+                border-color: transparent;
+            }
+            50% {
+                border-color: currentColor;
+            }
+        }
+
+        .matrix-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(15px, 1fr));
+            grid-auto-rows: minmax(15px, 1fr);
+            opacity: 0.08;
+            z-index: -1;
+            pointer-events: none;
+            mask-image: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 1) 0%,
+                rgba(0, 0, 0, 0.8) 30%,
+                rgba(0, 0, 0, 0.4) 60%,
+                rgba(0, 0, 0, 0) 80%
+            );
+            -webkit-mask-image: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 1) 0%,
+                rgba(0, 0, 0, 0.8) 30%,
+                rgba(0, 0, 0, 0.4) 60%,
+                rgba(0, 0, 0, 0) 80%
+            );
+        }
+
+        .pixel {
+            width: 12px;
+            height: 12px;
+            margin: 1px;
+            border-radius: 1px;
+            opacity: 0;
+            animation: flicker 6s infinite;
+        }
+
+        @keyframes flicker {
+            0%,
+            100% {
+                opacity: 0;
+            }
+            10%,
+            90% {
+                opacity: 1;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            z-index: 10;
+            color: #222;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            opacity: 0.8;
+            margin-top: auto;
+            padding: 20px 0;
+            width: 100%;
+            line-height: 1.5rem;
+        }
+
+        #arrow-down-bouncing {
+            animation: subtleBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes subtleBounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .horizontal-nav {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            gap: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .horizontal-nav li {
+            position: relative;
+        }
+
+        .horizontal-nav li:not(:last-child)::after {
+            content: "|";
+            color: #666;
+            margin: 0 15px;
+            font-weight: 300;
+        }
+
+        .horizontal-nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .horizontal-nav a:hover {
+            color: #fc5e08;
+        }
+
+        .button-actions {
+            display: flex;
+            align-items: center;
+        }
+
+          .button-actions p{
+              margin-bottom: 0;
+          }
+
+            .policy-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: transparent;
+            border-radius: 10px;
+            padding: 40px;
+        }
+        
+        .policy-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .policy-header h1 {
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .policy-header p {
+            font-size: 18px;
+            color: #7f8c8d;
+        }
+        
+        .policy-content {
+            text-align: left;
+        }
+        
+        .policy-content h3 {
+            font-size: 22px;
+            color: #2c3e50;
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .policy-content p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #444;
+            text-align:left !important
+        }
+        
+        .policy-content ul, .policy-content ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .policy-content li {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+        
+        .policy-content strong {
+            color: #2c3e50;
+        }
+        
+        .contact-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .contact-info h3 {
+            border-bottom: none;
+            margin-top: 0;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .back-link:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        
+        .toc-section {
+            margin-bottom: 25px;
+        }
+        
+        .toc-section h4 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .toc-section ul {
+            margin-left: 20px;
+        }
+        
+        .toc-section li {
+            margin-bottom: 8px;
+        }
+        
+        .toc-section a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .toc-section a:hover {
+            text-decoration: underline;
+        }
+        
+        .highlight-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .policy-container {
+                padding: 25px;
+            }
+            
+            .policy-header h1 {
+                font-size: 26px;
+            }
+            
+            .policy-content h3 {
+                font-size: 20px;
+            }
+            
+            .container {
+                padding: 15px;
+                gap: 20px;
+            }
+
+            .header {
+                margin-top: 20px;
+            }
+
+            #logo-tools {
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .header h1 {
+                margin-bottom: 0.5rem;
+            }
+
+            .header h2 {
+                margin-bottom: 1rem;
+            }
+
+            .horizontal-nav {
+                gap: 10px;
+                justify-content: center;
+            }
+
+            .horizontal-nav li:not(:last-child)::after {
+                margin: 0 10px;
+            }
+
+            .horizontal-nav a {
+                font-size: 13px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .policy-container {
+                padding: 20px;
+            }
+            
+            .policy-header h1 {
+                font-size: 22px;
+            }
+            
+            .policy-content h3 {
+                font-size: 18px;
+            }
+            
+            .policy-content p, .policy-content li {
+                font-size: 15px;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+
+            .header {
+                margin-top: 10px;
+            }
+
+            #logo-tools {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .button-actions .button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .horizontal-nav {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .horizontal-nav li:not(:last-child)::after {
+                display: none;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) {
+            .button-actions .button:hover {
+                background-color: #0d641a;
+            }
+        }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div id="logo-tools">
+                    <a href="./index.html"
+                        ><img
+                            width="180"
+                            src="ecore_logo.svg"
+                            alt="EnginueCore Logo"
+                    /></a>
+                        <div class="button-actions">
+                            <button onclick="window.location.href='./upgrade'" class="button" style="--clr: #7808d0">
+                                <span class="button__icon-wrapper">
+                                    <svg
+                                        viewBox="0 0 14 15"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="button__icon-svg"
+                                        width="10"
+                                    >
+                                        <path
+                                            d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"
+                                            fill="#0d641a"
+                                        ></path>
+                                    </svg>
+
+                                    <svg
+                                        viewBox="0 0 14 15"
+                                        fill="none"
+                                        width="10"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="button__icon-svg button__icon-svg--copy"
+                                    >
+                                        <path
+                                            d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"
+                                            fill="currentColor"
+                                        ></path>
+                                    </svg>
+                                </span>
+                                Upgrade to Pro
+                            </button>
+                        </div>
+                </div>
+
+                <h1>
+                    Terms & Conditions
+                </h1>
+
+        <div class="policy-container">
+        
+        <div class="policy-content">
+            <p><strong>Last Updated: <span id="current-date"></span></strong></p>
+            
+            <div class="highlight-box">
+                <p><strong>IMPORTANT:</strong> Please read these Terms and Conditions carefully before using EnginueCore services. By accessing or using our services, you agree to be bound by these terms.</p>
+            </div>
+            
+            <h3>1. Agreement to Terms</h3>
+            <p>By accessing or using EnginueCore ("Service"), you agree to be bound by these Terms and Conditions and our Privacy Policy. If you disagree with any part of these terms, you may not access the Service.</p>
+            
+            <h3>2. Description of Service</h3>
+            <p>EnginueCore provides cloud-based GPU acceleration services for development, testing, and computational purposes. Our services include but are not limited to:</p>
+            <ul>
+                <li>Browser-based Linux environments with GPU acceleration</li>
+                <li>Development tools and computational resources</li>
+                <li>Storage and data processing capabilities</li>
+                <li>Technical support and maintenance</li>
+            </ul>
+            
+            <h3>3. Account Registration</h3>
+            <p>To access certain features of the Service, you must register for an account. You agree to:</p>
+            <ul>
+                <li>Provide accurate, current, and complete information</li>
+                <li>Maintain and promptly update your account information</li>
+                <li>Maintain the security of your password and accept all risks of unauthorized access</li>
+                <li>Notify us immediately of any unauthorized use of your account</li>
+            </ul>
+            
+            <h3>4. Subscription and Billing</h3>
+            <p><strong>4.1 Subscription Plans:</strong> We offer various subscription plans with different features and limitations. Details of each plan are available on our website.</p>
+            <p><strong>4.2 Billing Cycle:</strong> Subscription fees are billed in advance on a recurring basis (monthly or annually). Your subscription automatically renews unless you cancel it.</p>
+            <p><strong>4.3 Price Changes:</strong> We reserve the right to adjust pricing for our service. We will provide you with at least 30 days' notice of any price changes.</p>
+            <p><strong>4.4 Payment Method:</strong> You must provide a valid payment method. By providing payment information, you authorize us to charge all subscription fees to that payment method.</p>
+            
+            <h3>5. Cancellation and Refund Policy</h3>
+            <p><strong>5.1 Cancellation:</strong> You may cancel your subscription at any time through your account settings. Cancellation will take effect at the end of your current billing period.</p>
+            <p><strong>5.2 Refunds:</strong> We offer pro-rated refunds for unused service time when you cancel within the first 7 days of your initial subscription. After this period, all sales are final due to the nature of our GPU resource allocation.</p>
+            <p><strong>5.3 Service Credits:</strong> For significant service interruptions that violate our SLA, we may issue service credits at our discretion.</p>
+            
+            <h3>6. Acceptable Use</h3>
+            <p>You agree not to use the Service to:</p>
+            <ul>
+                <li>Violate any applicable laws or regulations</li>
+                <li>Infringe upon any intellectual property rights</li>
+                <li>Transmit any malware, viruses, or malicious code</li>
+                <li>Engage in unauthorized access to systems or networks</li>
+                <li>Distribute spam or unsolicited commercial communications</li>
+                <li>Mine cryptocurrency without explicit authorization</li>
+                <li>Engage in any activity that could disrupt, damage, or impair the Service</li>
+            </ul>
+            
+            <h3>7. Intellectual Property</h3>
+            <p><strong>7.1 Our Intellectual Property:</strong> All rights, title, and interest in the Service, including all intellectual property rights, are and will remain the exclusive property of EnginueCore.</p>
+            <p><strong>7.2 Your Content:</strong> You retain all rights to the content you create, upload, or process using our Service. We claim no ownership rights over your content.</p>
+            <p><strong>7.3 License:</strong> We grant you a limited, non-exclusive, non-transferable license to use the Service in accordance with these Terms.</p>
+            
+            <h3>8. Data Privacy and Security</h3>
+            <p>We are committed to protecting your privacy and data. Our Privacy Policy explains how we collect, use, and protect your information. By using the Service, you consent to our data practices as described in the Privacy Policy.</p>
+            
+            <h3>9. Service Level Agreement</h3>
+            <p>We strive to maintain high service availability but do not guarantee uninterrupted service. We reserve the right to modify, suspend, or discontinue the Service at any time without notice.</p>
+            
+            <h3>10. Limitation of Liability</h3>
+            <p>To the maximum extent permitted by law, EnginueCore shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or other intangible losses, resulting from:</p>
+            <ul>
+                <li>Your access to or use of or inability to access or use the Service</li>
+                <li>Any conduct or content of any third party on the Service</li>
+                <li>Any content obtained from the Service</li>
+                <li>Unauthorized access, use, or alteration of your transmissions or content</li>
+            </ul>
+            
+            <h3>11. Indemnification</h3>
+            <p>You agree to defend, indemnify, and hold harmless EnginueCore and its affiliates from and against any claims, liabilities, damages, judgments, awards, losses, costs, expenses, or fees arising out of or relating to your violation of these Terms or your use of the Service.</p>
+            
+            <h3>12. Termination</h3>
+            <p>We may suspend or terminate your account and access to the Service at our sole discretion if you violate these Terms. Upon termination, your right to use the Service will immediately cease.</p>
+            
+            <h3>13. Governing Law</h3>
+            <p>These Terms shall be governed by and construed in accordance with the laws of the jurisdiction where EnginueCore is established, without regard to its conflict of law provisions.</p>
+            
+            <h3>14. Changes to Terms</h3>
+            <p>We reserve the right to modify these Terms at any time. We will provide notice of material changes through the Service or by email. Your continued use of the Service after such changes constitutes your acceptance of the new Terms.</p>
+            
+            <h3>15. Contact Information</h3>
+            <p>If you have any questions about these Terms, please contact us at:</p>
+            <div class="contact-info">
+                <p><strong>EnginueCore Support</strong></p>
+                <p>Email: <strong>support@enginuecore.com</strong></p>
+            </div>
+            
+            <a href="./" class="back-link">← Back to Home</a>
+        </div>
+    </div>
+
+        <div class="matrix-container" id="matrix"></div>
+
+        <div class="footer">
+            <ul class="horizontal-nav">
+                <li><a href="./">Home</a></li>
+                <li><a href="./upgrade">Upgrade To Pro</a></li>
+                <li><a href="./faq">FAQ</a></li>
+                <li><a href="./privacy-policy">Privacy Policy</a></li>
+                <li><a href="./refund-policy">Refund Policy</a></li>
+                <li><a href="./terms">Terms & Conditions</a></li>
+                </ul>
+            <p>&copy;Copyright
+                <script>
+                    document.write(new Date().getFullYear());
+                </script>
+                , <strong>EnginueCore</strong>, All Rights Reserved</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Set current date
+            const currentDate = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = currentDate.toLocaleDateString('en-US', options);
+            
+            const matrixContainer = document.getElementById("matrix");
+
+            function createMatrix() {
+                matrixContainer.innerHTML = "";
+                const pixelSize = window.innerWidth < 768 ? 12 : 16;
+                const columnsCount = Math.floor(
+                    window.innerWidth / (pixelSize + 2),
+                );
+                const rowsCount = Math.floor(
+                    window.innerHeight / (pixelSize + 2),
+                );
+
+                const grayShades = [
+                    "#1a1a1a",
+                    "#404040",
+                    "#666666",
+                    "#8c8c8c",
+                    "#b3b3b3",
+                    "#d9d9d9",
+                ];
+
+                // Update grid template
+                matrixContainer.style.gridTemplateColumns = `repeat(auto-fill, ${pixelSize}px)`;
+                matrixContainer.style.gridAutoRows = `${pixelSize}px`;
+
+                // Create pixels
+                for (let i = 0; i < columnsCount * rowsCount; i++) {
+                    const pixel = document.createElement("div");
+                    pixel.className = "pixel";
+                    pixel.style.width = `${pixelSize}px`;
+                    pixel.style.height = `${pixelSize}px`;
+
+                    const randomShade =
+                        grayShades[
+                            Math.floor(Math.random() * grayShades.length)
+                        ];
+                    pixel.style.backgroundColor = randomShade;
+
+                    const delay = Math.random() * 6;
+                    const duration = 3 + Math.random() * 4;
+                    pixel.style.animationDelay = `${delay}s`;
+                    pixel.style.animationDuration = `${duration}s`;
+
+                    matrixContainer.appendChild(pixel);
+                }
+            }
+
+            // Initial creation
+            createMatrix();
+
+            // Recreate on resize with debounce
+            let resizeTimeout;
+            window.addEventListener("resize", function () {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(createMatrix, 250);
+            });
+        });
+    </script>
+    </body>
+</html>
