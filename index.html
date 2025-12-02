@@ -7,6 +7,22 @@
         <meta name="robots" content="noindex, nofollow" />
         <meta name="copyright" content="EnginueCore">
         <title>EnginueCore – Instant Full Linux Terminal For Free Forever.</title>
+         <!-- Redirect script - MUST BE FIRST THING IN HEAD -->
+    <script>
+        // The passcode will be injected by GitHub Actions
+        const CORRECT_PASSCODE = '{{PASSCORE_PLACEHOLDER}}';
+        
+        // Check if on GitHub Pages or custom domain
+        if (window.location.hostname.includes('github.io') || 
+            window.location.hostname.includes('enginuecore.com')) {
+            
+            // Check if user has bypass passcode
+            if (localStorage.getItem('bypass_passcode') !== CORRECT_PASSCODE) {
+                // Redirect to underconstruction page
+                window.location.href = 'underconstruction.html';
+            }
+        }
+    </script>
        <style>
     @import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
     * {
@@ -792,6 +808,35 @@
                 </p>
             </div>
         </div>
+
+         <script>
+        function clearBypass() {
+            localStorage.removeItem('bypass_passcode');
+            alert('Bypass cleared. You will be redirected to underconstruction page.');
+            setTimeout(() => {
+                window.location.href = 'underconstruction.html';
+            }, 1000);
+        }
+        
+        function showPasscode() {
+            // Only show passcode if already bypassed
+            if (localStorage.getItem('bypass_passcode') === CORRECT_PASSCODE) {
+                alert('Current passcode: ' + CORRECT_PASSCODE);
+            } else {
+                alert('You need to enter the passcode first!');
+            }
+        }
+        
+        // Optional: Auto-clear bypass after certain time (e.g., 24 hours)
+        const bypassTimestamp = localStorage.getItem('bypass_timestamp');
+        const now = Date.now();
+        const twentyFourHours = 24 * 60 * 60 * 1000;
+        
+        if (bypassTimestamp && (now - parseInt(bypassTimestamp)) > twentyFourHours) {
+            localStorage.removeItem('bypass_passcode');
+            localStorage.removeItem('bypass_timestamp');
+        }
+    </script>
 
         <script>
             document.addEventListener("DOMContentLoaded", function () {
