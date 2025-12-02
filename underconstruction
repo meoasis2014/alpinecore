@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Under Construction - enginue core</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+            width: 90%;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .passcode-form {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        input[type="password"] {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            width: 70%;
+            margin-right: 10px;
+        }
+        button {
+            padding: 12px 30px;
+            font-size: 16px;
+            background: #fff;
+            color: #667eea;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #f0f0f0;
+        }
+        .error {
+            color: #ff6b6b;
+            margin-top: 10px;
+            display: none;
+        }
+        .social-links {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚧 Site Under Construction</h1>
+        <p>We're working hard to bring you something amazing! Our website is currently being upgraded to serve you better.</p>
+        
+        <div class="passcode-form">
+            <p>If you're an authorized user, enter the passcode to access the site:</p>
+            <input type="password" id="passcodeInput" placeholder="Enter passcode">
+            <button onclick="checkPasscode()">Enter Site</button>
+            <div class="error" id="errorMessage">Invalid passcode. Please try again.</div>
+        </div>
+    </div>
+
+    <script>
+        // The passcode will be injected by GitHub Actions
+        const CORRECT_PASSCODE = '{{PASSCORE_PLACEHOLDER}}';
+        
+        // Check if user already has bypass
+        if (localStorage.getItem('bypass_passcode') === CORRECT_PASSCODE) {
+            redirectToMainSite();
+        }
+
+        function checkPasscode() {
+            const input = document.getElementById('passcodeInput').value;
+            const error = document.getElementById('errorMessage');
+            
+            if (input === CORRECT_PASSCODE) {
+                localStorage.setItem('bypass_passcode', CORRECT_PASSCODE);
+                redirectToMainSite();
+            } else {
+                error.style.display = 'block';
+            }
+        }
+
+        function redirectToMainSite() {
+            window.location.href = window.location.origin;
+        }
+
+        document.getElementById('passcodeInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPasscode();
+            }
+        });
+    </script>
+</body>
+</html>
